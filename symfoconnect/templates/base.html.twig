@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}SymfoConnect{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <a href="{{ path('app_home') }}">Accueil</a> |
+        <a href="{{ path('app_post_nouveau') }}">Nouveau Post</a>
+    </nav>
+
+    <hr>
+
+    {% for message in app.flashes('success') %}
+        <div style="color: green;">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div style="color: red;">{{ message }}</div>
+    {% endfor %}
+
+    <hr>
+
+    {% block body %}{% endblock %}
+</body>
+</html>
