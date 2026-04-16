@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fil d'actualité{% endblock %}
+
+{% block body %}
+    <h1>📰 Fil d'actualité</h1>
+
+    {% if empty %}
+        <div class="card">
+            <p>Vous ne suivez personne pour le moment.</p>
+            <a href="{{ path('app_home') }}" class="btn btn-primary">Découvrir des utilisateurs</a>
+        </div>
+    {% else %}
+        {% for post in posts %}
+            <div class="card">
+                <p>{{ post.content }}</p>
+                <small>
+                    Par <a href="{{ path('app_profile', {username: post.author.username}) }}">
+                        {{ post.author.username }}
+                    </a>
+                    — {{ post.createdAt|date('d/m/Y H:i') }}
+                </small>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

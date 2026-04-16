@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <div class="card" style="max-width: 400px; margin: 0 auto;">
+        <h1>Connexion</h1>
+
+        {% if error %}
+            <div class="flash-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <form method="post">
+            <input type="email" name="_username" value="{{ last_username }}" placeholder="Email" required>
+            <input type="password" name="_password" placeholder="Mot de passe" required>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <button type="submit" class="btn btn-primary" style="width:100%">Se connecter</button>
+        </form>
+
+        <br>
+        <p style="text-align:center">Pas encore de compte ? <a href="{{ path('app_register') }}">S'inscrire</a></p>
+    </div>
+{% endblock %}

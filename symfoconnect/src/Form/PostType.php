@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -22,9 +21,6 @@ class PostType extends AbstractType
                     new NotBlank(['message' => 'Le contenu est obligatoire']),
                     new Length(['min' => 5, 'minMessage' => 'Minimum 5 caractères']),
                 ],
-            ])
-            ->add('envoyer', SubmitType::class, [
-                'label' => 'Publier',
             ]);
     }
 

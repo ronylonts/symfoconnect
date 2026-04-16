@@ -3,9 +3,12 @@
 {% block title %}Nouveau Post — SymfoConnect{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouveau post</h1>
+    <div class="card" style="max-width: 600px; margin: 0 auto;">
+        <h1>🖊️ Créer un nouveau post</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-    {{ form_end(form) }}
+        {{ form_start(form) }}
+            {{ form_row(form.content) }}
+            <button type="submit" class="btn btn-primary" style="width:100%">Publier</button>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
