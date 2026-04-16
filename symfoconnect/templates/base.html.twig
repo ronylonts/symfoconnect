@@ -29,15 +29,23 @@
 </head>
 <body>
     <nav>
-        <a href="{{ path('app_home') }}">🌐 SymfoConnect</a>
-        <a href="{{ path('app_post_nouveau') }}">✏️ Nouveau Post</a>
-        <a href="{{ path('app_feed') }}">📰 Fil d'actualité</a>
-        {% if app.user %}
-            <span>👤 {{ app.user.username }} | <a href="{{ path('app_logout') }}">Déconnexion</a></span>
-        {% else %}
-            <span><a href="{{ path('app_login') }}">Connexion</a> | <a href="{{ path('app_register') }}">Inscription</a></span>
-        {% endif %}
-    </nav>
+    <a href="{{ path('app_home') }}">🌐 Accueil</a>
+    <a href="{{ path('app_post_nouveau') }}">✏️ Nouveau Post</a>
+    <a href="{{ path('app_feed') }}">📰 Fil d'actualité</a>
+    {% if app.user %}
+        <span>
+            <a href="{{ path('app_profile', {username: app.user.username}) }}" style="color:white">
+                👤 {{ app.user.username }}
+            </a> &nbsp;|&nbsp; 
+            <a href="{{ path('app_logout') }}" style="color:white">Déconnexion</a>
+        </span>
+    {% else %}
+        <span>
+            <a href="{{ path('app_login') }}" style="color:white">Connexion</a> | 
+            <a href="{{ path('app_register') }}" style="color:white">Inscription</a>
+        </span>
+    {% endif %}
+</nav>
 
     <div class="container">
         {% for message in app.flashes('success') %}
