@@ -17,6 +17,16 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    public function findLatestPosts(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults(10)
+            ->distinct()
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findFeedPosts(User $user): array
     {
         return $this->createQueryBuilder('p')
@@ -24,6 +34,7 @@ class PostRepository extends ServiceEntityRepository
             ->where(':user MEMBER OF a.followers')
             ->setParameter('user', $user)
             ->orderBy('p.createdAt', 'DESC')
+            ->distinct()
             ->getQuery()
             ->getResult();
     }

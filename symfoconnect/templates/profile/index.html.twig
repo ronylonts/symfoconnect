@@ -31,6 +31,9 @@
             {% else %}
                 <a href="{{ path('app_follow', {username: user.username}) }}" class="btn btn-follow">➕ Suivre</a>
             {% endif %}
+            <a href="{{ path('app_conversation', {username: user.username}) }}" class="btn btn-primary" style="margin-top:10px;">
+                💬 Envoyer un message
+            </a>
         {% endif %}
     </div>
 
