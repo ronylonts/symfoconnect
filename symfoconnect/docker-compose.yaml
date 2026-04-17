@@ -1,0 +1,21 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: symfoconnect_db
+    environment:
+      MYSQL_ROOT_PASSWORD: roland
+      MYSQL_DATABASE: symfoconnect
+    ports:
+      - "3309:3306"
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: symfoconnect_pma
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: roland
