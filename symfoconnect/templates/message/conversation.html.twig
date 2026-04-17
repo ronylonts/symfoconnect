@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conversation avec {{ otherUser.username }}{% endblock %}
+
+{% block body %}
+    <h1>💬 Conversation avec {{ otherUser.username }}</h1>
+
+    <div class="card">
+        {% for message in messages %}
+            <div style="margin-bottom: 15px; text-align: {{ message.sender == app.user ? 'right' : 'left' }}">
+                <div style="display: inline-block; background: {{ message.sender == app.user ? '#1877f2' : '#eee' }}; color: {{ message.sender == app.user ? 'white' : '#333' }}; padding: 8px 12px; border-radius: 12px; max-width: 60%;">
+                    {{ message.content }}
+                </div>
+                <br>
+                <small style="color: #888">{{ message.createdAt|date('d/m/Y H:i') }}</small>
+            </div>
+        {% else %}
+            <p>Aucun message. Commencez la conversation !</p>
+        {% endfor %}
+    </div>
+
+    <div class="card">
+        <form method="post">
+            <textarea name="content" placeholder="Votre message..." style="height: 80px;" required></textarea>
+            <button type="submit" class="btn btn-primary" style="width:100%">Envoyer</button>
+        </form>
+    </div>
+{% endblock %}

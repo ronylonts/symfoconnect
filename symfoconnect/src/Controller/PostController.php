@@ -10,13 +10,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class PostController extends AbstractController
 {
     #[Route('/post/nouveau', name: 'app_post_nouveau')]
     public function nouveau(
         Request $request,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        CacheInterface $cache
     ): Response {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -27,6 +29,8 @@ class PostController extends AbstractController
             $post->setCreatedAt(new \DateTimeImmutable());
             $em->persist($post);
             $em->flush();
+
+            $cache->delete('feed_user_' . $this->getUser()->getId());
 
             $this->addFlash('success', 'Post créé avec succès !');
             return $this->redirectToRoute('app_home');

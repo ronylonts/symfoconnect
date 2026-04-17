@@ -45,6 +45,10 @@
             <a href="{{ path('app_register') }}" style="color:white">Inscription</a>
         </span>
     {% endif %}
+    {% if app.user %}
+            <a href="{{ path('app_messages') }}">💬 Messages</a>
+    {% endif %}
+
 </nav>
 
     <div class="container">

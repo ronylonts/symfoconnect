@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes messages{% endblock %}
+
+{% block body %}
+    <h1>💬 Mes messages</h1>
+
+    {% if conversations is empty %}
+        <div class="card">
+            <p>Aucune conversation pour le moment.</p>
+        </div>
+    {% else %}
+        {% set seen = [] %}
+        {% for message in conversations %}
+            {% set otherUser = message.sender == app.user ? message.recipient : message.sender %}
+            {% if otherUser.username not in seen %}
+                {% set seen = seen|merge([otherUser.username]) %}
+                <div class="card">
+                    <a href="{{ path('app_conversation', {username: otherUser.username}) }}">
+                        👤 {{ otherUser.username }}
+                    </a>
+                    {% if not message.isRead and message.recipient == app.user %}
+                        <span style="color: red; font-weight: bold;">● nouveau</span>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
